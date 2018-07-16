@@ -1,4 +1,4 @@
- {
+{
   "name": "chat",
   "version": "1.0.0",
   "description": "",
@@ -13,6 +13,7 @@
   "author": "Marius Tverijonas",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1"
   }
 }
