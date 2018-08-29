@@ -23,9 +23,19 @@
                     <input type="text" name="room" />
                 </div>
                 <div class="form-field">
+                    <label>Active rooms</label>
+                    <select name="roomSelect" id="rooms">
+                        <option value="">No active rooms</option>
+                    </select>
+                </div>
+                <div class="form-field">
                     <button>Join</button>
                 </div>
             </form>
         </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/libs/jquery-3.3.1.min.js"></script>
+        <script src="/js/login.js"></script>
     </body>
 </html>

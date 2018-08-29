@@ -19,13 +19,19 @@ app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
     console.log('New user connected');
+    socket.emit('updateRoomList', users.getRoomList());
 
     socket.on('join', (params, callback) => {
-        if (!isRealString(params.name) || !isRealString(params.room)) {
-            callback('Name and room name are required');
+        if (!isRealString(params.name) || (!isRealString(params.room) && !isRealString(params.roomSelect))) {
+            return callback('Name and room name are required');
         }
 
-        var room = params.room.toUpperCase();
+        if (isRealString(params.room)) {
+            var room = params.room.toUpperCase();
+        } else {
+            var room = params.roomSelect.toUpperCase();
+        }
+
         socket.join(room);
         users.removeUser(socket.id);
         users.addUser(socket.id, params.name, room);
@@ -33,6 +39,7 @@ io.on('connection', (socket) => {
         io.to(room).emit('updateUserList', users.getUserList(room));
         socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
         socket.broadcast.to(room).emit('newMessage', generateMessage('Admin', `${params.name} has joined`));
+        socket.broadcast.emit('updateRoomList', users.getRoomList());
 
         callback();
     });

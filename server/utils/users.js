@@ -25,6 +25,10 @@ class Users {
 
         return namesArray;
     }
+    getRoomList () {
+        //Set removes duplicates
+        return Array.from(new Set(this.users.map(user => user.room)));
+    }
 }
 
 module.exports = {Users};
